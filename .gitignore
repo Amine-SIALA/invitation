@@ -16,3 +16,6 @@ dist/
 # os / editor
 .DS_Store
 _preview*.png
+
+# raw source photo (only the processed public/host.jpg is committed)
+/ea56ff09-ceac-4e8f-8f2e-537e88e41e85.jpg

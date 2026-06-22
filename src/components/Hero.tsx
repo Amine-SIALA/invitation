@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CalendarCheck, ChevronDown, Sparkles, User } from "lucide-react";
+import { CalendarCheck, ChevronDown, Sparkles } from "lucide-react";
 import { EVENT } from "../lib/config";
 import { useTyping } from "../hooks/useTyping";
 
@@ -34,9 +34,13 @@ export default function Hero() {
         >
           <div className="relative grid h-28 w-28 place-items-center rounded-full">
             <span className="absolute inset-0 rounded-full bg-gradient-to-br from-cyanx-400 via-electric-500 to-gold-400 opacity-90 blur-[2px]" />
-            <span className="absolute inset-[3px] rounded-full" style={{ background: "var(--bg-1)" }} />
+            <img
+              src="/host.jpg"
+              alt={`Portrait de ${EVENT.host}`}
+              loading="eager"
+              className="absolute inset-[3px] z-10 rounded-full object-cover shadow-lg"
+            />
             <span className="absolute inset-0 animate-pulseRing rounded-full border border-cyanx-400/50" />
-            <User size={42} className="relative z-10 t-accent" aria-hidden />
           </div>
         </motion.div>
 
