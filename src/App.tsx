@@ -11,6 +11,7 @@ import AttendanceSection from "./components/AttendanceSection";
 import Guestbook from "./components/Guestbook";
 import SocialShare from "./components/SocialShare";
 import Footer from "./components/Footer";
+import RSVPProvider from "./components/RSVPProvider";
 import { useTheme } from "./hooks/useTheme";
 
 export default function App() {
@@ -23,7 +24,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <RSVPProvider>
       <AnimatePresence>{loading && <LoadingScreen />}</AnimatePresence>
 
       <Background />
@@ -40,6 +41,6 @@ export default function App() {
       </main>
 
       <Footer />
-    </>
+    </RSVPProvider>
   );
 }

@@ -33,7 +33,7 @@ export function downloadICS() {
     `DTSTAMP:${stamp(new Date())}`,
     `DTSTART:${stamp(start)}`,
     `DTEND:${stamp(end)}`,
-    `SUMMARY:${EVENT.eventType} — ${EVENT.host}`,
+    `SUMMARY:${EVENT.eventType} — ${EVENT.presentersLabel}`,
     `DESCRIPTION:${EVENT.projectTitle}. ${EVENT.shareText}`,
     `LOCATION:${EVENT.venue} — ${EVENT.venueDetail}`,
     "END:VEVENT",

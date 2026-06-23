@@ -4,8 +4,12 @@
 // ============================================================
 
 export const EVENT = {
-  /** Person presenting / inviting. Shown prominently in the hero & footer. */
-  host: "Amine SIALA",
+  /** Présentateurs (binôme) — affichés dans le hero et le pied de page. */
+  presenters: [
+    { name: "Kais ABBES", photo: "/kais.jpg" },
+    { name: "Amine SIALA", photo: "/host.jpg" },
+  ],
+  presentersLabel: "Kais ABBES & Amine SIALA",
 
   /**
    * Date & heure de la soutenance (ISO local).
@@ -32,9 +36,9 @@ export const EVENT = {
   objective: 100,
 
   // social / sharing
-  shareTitle: "Invitation à ma Soutenance de Projet de Fin d'Études",
+  shareTitle: "Invitation à notre Soutenance de Projet de Fin d'Études",
   shareText:
-    "Vous êtes cordialement invité·e à assister à la présentation finale de mon projet — FSS Sfax, 25 juin 2026 à 16h00.",
+    "Vous êtes cordialement invité·e à assister à la présentation finale de notre projet — FSS Sfax, 25 juin 2026 à 16h00.",
 } as const;
 
 /** Public site URL — set after first deploy; falls back to current origin. */

@@ -2,8 +2,10 @@ import { motion } from "framer-motion";
 import { CalendarCheck, ChevronDown, Sparkles } from "lucide-react";
 import { EVENT } from "../lib/config";
 import { useTyping } from "../hooks/useTyping";
+import { useRSVP } from "./RSVPProvider";
 
 export default function Hero() {
+  const { openRSVP } = useRSVP();
   const typed = useTyping([
     "Portail B2B MPBS — Lot 1",
     "Drupal 11 · Next.js · SAGE X3",
@@ -25,23 +27,31 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        {/* photo placeholder */}
+        {/* presenters' photos */}
         <motion.div
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="mx-auto mb-7 grid h-28 w-28 place-items-center rounded-full"
+          className="mx-auto mb-7 flex items-center justify-center gap-4 sm:gap-5"
         >
-          <div className="relative grid h-28 w-28 place-items-center rounded-full">
-            <span className="absolute inset-0 rounded-full bg-gradient-to-br from-cyanx-400 via-electric-500 to-gold-400 opacity-90 blur-[2px]" />
-            <img
-              src="/host.jpg"
-              alt={`Portrait de ${EVENT.host}`}
-              loading="eager"
-              className="absolute inset-[3px] z-10 rounded-full object-cover shadow-lg"
-            />
-            <span className="absolute inset-0 animate-pulseRing rounded-full border border-cyanx-400/50" />
-          </div>
+          {EVENT.presenters.map((p, i) => (
+            <div
+              key={p.name}
+              className="group relative grid h-24 w-24 place-items-center rounded-full sm:h-28 sm:w-28"
+            >
+              <span className="absolute inset-0 rounded-full bg-gradient-to-br from-cyanx-400 via-electric-500 to-gold-400 opacity-90 blur-[2px]" />
+              <img
+                src={p.photo}
+                alt={`Portrait de ${p.name}`}
+                loading="eager"
+                className="absolute inset-[3px] z-10 rounded-full object-cover shadow-lg"
+              />
+              <span
+                className="absolute inset-0 animate-pulseRing rounded-full border border-cyanx-400/50"
+                style={{ animationDelay: `${i * 1.1}s` }}
+              />
+            </div>
+          ))}
         </motion.div>
 
         <motion.p
@@ -59,7 +69,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.15 }}
           className="font-display text-3xl font-extrabold leading-[1.08] [text-wrap:balance] break-words sm:text-6xl"
         >
-          Invitation à ma <span className="text-gradient">Soutenance</span>
+          Invitation à notre <span className="text-gradient">Soutenance</span>
           <br className="hidden sm:block" /> de Projet de Fin d'Études
         </motion.h1>
 
@@ -69,7 +79,7 @@ export default function Hero() {
           transition={{ delay: 0.4 }}
           className="mx-auto mt-5 max-w-2xl text-base muted sm:text-lg"
         >
-          Vous êtes cordialement invité·e à assister à la présentation finale de mon projet.
+          Vous êtes cordialement invité·e à assister à la présentation finale de notre projet.
         </motion.p>
 
         {/* typing line */}
@@ -85,8 +95,8 @@ export default function Hero() {
           transition={{ delay: 0.55 }}
           className="mt-6"
         >
-          <p className="text-xs uppercase tracking-[0.3em] muted">Présenté par</p>
-          <p className="mt-1 font-display text-2xl font-bold">{EVENT.host}</p>
+          <p className="text-xs uppercase tracking-[0.3em] muted">Présentés par</p>
+          <p className="mt-1 font-display text-xl font-bold sm:text-2xl">{EVENT.presentersLabel}</p>
         </motion.div>
 
         <motion.div
@@ -95,9 +105,9 @@ export default function Hero() {
           transition={{ delay: 0.7 }}
           className="mt-9 flex flex-wrap items-center justify-center gap-3"
         >
-          <a href="#confirmer" className="btn btn-primary">
+          <button type="button" onClick={openRSVP} className="btn btn-primary">
             <CalendarCheck size={17} aria-hidden /> Confirmer ma présence
-          </a>
+          </button>
           <a href="#details" className="btn btn-ghost">
             Voir les détails <ChevronDown size={16} aria-hidden />
           </a>

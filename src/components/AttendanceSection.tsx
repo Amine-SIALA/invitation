@@ -1,13 +1,11 @@
-import { useCallback, useState } from "react";
+import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Users, Target, Trophy, UserPlus, Clock3 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAttendees } from "../hooks/useAttendees";
-import { celebrate } from "../lib/confetti";
 import AnimatedNumber from "./AnimatedNumber";
-import RSVPModal from "./RSVPModal";
 import Reveal from "./Reveal";
-import type { Attendee } from "../types";
+import { useRSVP } from "./RSVPProvider";
 
 function initials(name: string) {
   return name
@@ -32,17 +30,16 @@ function timeAgo(iso: string) {
 
 export default function AttendanceSection() {
   const { count, objective, attendees, justJoined, refresh } = useAttendees();
-  const [open, setOpen] = useState(false);
-  const close = useCallback(() => setOpen(false), []);
+  const { openRSVP, confirmedAt } = useRSVP();
+
+  // refresh the counter immediately after a confirmation (from anywhere)
+  useEffect(() => {
+    if (confirmedAt) refresh();
+  }, [confirmedAt, refresh]);
 
   const recent = [...attendees].sort((a, b) => b.number - a.number).slice(0, 5);
   const pct = Math.min(100, Math.round((count / objective) * 100));
   const exceeded = count > objective;
-
-  function onConfirmed(_a: Attendee) {
-    celebrate();
-    refresh();
-  }
 
   return (
     <section id="confirmer" className="relative mx-auto max-w-6xl px-5 py-24">
@@ -106,8 +103,8 @@ export default function AttendanceSection() {
             </div>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <button onClick={() => setOpen(true)} className="btn btn-primary">
-                <UserPlus size={17} /> Je serai présent·e
+              <button onClick={openRSVP} className="btn btn-primary">
+                <UserPlus size={17} aria-hidden /> Je serai présent·e
               </button>
               <Link to="/attendance" className="btn btn-ghost">
                 Voir tous les participants
@@ -157,7 +154,6 @@ export default function AttendanceSection() {
         </Reveal>
       </div>
 
-      <RSVPModal open={open} onClose={close} onConfirmed={onConfirmed} />
     </section>
   );
 }

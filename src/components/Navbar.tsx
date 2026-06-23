@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun, Menu, X, GraduationCap } from "lucide-react";
+import { useRSVP } from "./RSVPProvider";
 
 const LINKS = [
   { href: "#details", label: "Détails" },
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export default function Navbar({ theme, onToggleTheme }: Props) {
+  const { openRSVP } = useRSVP();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -63,9 +65,13 @@ export default function Navbar({ theme, onToggleTheme }: Props) {
           >
             {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
           </button>
-          <a href="#confirmer" className="btn btn-primary hidden px-4 py-2 text-xs sm:inline-flex">
+          <button
+            type="button"
+            onClick={openRSVP}
+            className="btn btn-primary hidden px-4 py-2 text-xs sm:inline-flex"
+          >
             Confirmer ma présence
-          </a>
+          </button>
           <button
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}

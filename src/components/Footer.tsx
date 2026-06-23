@@ -27,7 +27,7 @@ export default function Footer() {
         <p className="-mt-3 text-xs muted">Scannez pour rouvrir l'invitation</p>
 
         <p className="max-w-md muted">
-          {EVENT.host} — merci infiniment pour votre visite et votre présence à mes côtés.
+          {EVENT.presentersLabel} — merci infiniment pour votre visite et votre présence à nos côtés.
         </p>
 
         <div className="flex items-center gap-3">

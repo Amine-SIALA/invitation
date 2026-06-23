@@ -158,7 +158,7 @@ export default function RSVPModal({ open, onClose, onConfirmed }: Props) {
                         autoFocus
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="ex. Mohamed Trabelsi"
+                        placeholder="Votre nom et prénom"
                         className="input"
                         autoComplete="name"
                         aria-invalid={!!error}
